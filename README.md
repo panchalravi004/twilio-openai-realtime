@@ -87,6 +87,25 @@ This project demonstrates a Node.js application that acts as a middleware to con
 5. OpenAI processes the input and generates a real-time audio response, which is sent back to Twilio.
 6. The conversation continues seamlessly until the call ends.
 
+## Connection Diagram
+
+  ```mermaid
+  graph LR;
+      Caller["📞 Caller"]
+      Twilio["🔗 Twilio Number"]
+      Endpoint["🌐 /incoming-call Endpoint"]
+      NodeServer["🖥️ Node.js Server"]
+      OpenAI["🤖 OpenAI Realtime API"]
+      
+      Caller -->|Makes a call| Twilio
+      Twilio -->|Connects to| Endpoint
+      Endpoint -->|Forwards audio stream| NodeServer
+      NodeServer -->|Sends stream| OpenAI
+      OpenAI -->|Returns AI response| NodeServer
+      NodeServer -->|Sends response| Twilio
+      Twilio -->|Plays audio| Caller
+  ```
+
 ---
 
 ## Tech Stack
